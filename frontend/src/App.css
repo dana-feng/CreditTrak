@@ -1,0 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:wght@600&display=swap");
+.App {
+  text-align: center;
+}
+.home-styling {
+  padding-top: 3vh;
+  font-family: "Pacifico", cursive !important;
+}
+.table-row {
+  padding-top: 3vh;
+  font-family: "Fira Sans", sans-serif;
+}
+.button-style {
+  padding-top: 2vh;
+  font-family: "Fira Sans", sans-serif;
+}
+.block-styling {
+  padding-top: 5vh;
+}
+.spacing {
+  padding-top: 1vw;
+  padding-bottom: 1vw;
+  justify-content: center;
+}
+.footer {
+  padding-top: 5vh;
+}
+.card-styling {
+  color: #1976d2;
+}
+.img-styling {
+  width: 5vw;
+  height: auto;
+  justify-content: center;
+  text-align: center;
+}
+.landing-styling {
+  padding-top: 20vh;
+  font-family: "Pacifico", cursive !important;
+  text-align: center;
+  justify-content: center;
+}
