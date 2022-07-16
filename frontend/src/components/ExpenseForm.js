@@ -12,6 +12,8 @@ import { useTheme } from '@mui/material/styles';
 import { Input } from '@mui/material';
 import { InputAdornment } from '@mui/material';
 import Row from 'react-bootstrap/Row'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 
@@ -26,10 +28,13 @@ export default function ExpenseForm(props) {
         "card": props.card,
         "id": props.id
       });
-    const handleChange = (prop) => (event) => {
-        setValues({ ...values, [prop]: event.target.value });
-      };
-    
+      const handleChange = (prop) => (event) => {
+        if (prop === "date") {
+          setValues({ ...values, [prop]: event});
+        } else {
+          setValues({ ...values, [prop]: event.target.value });
+        }
+        };
     function submitExpense() {
         props.addExpense(values)
         handleClose()
@@ -54,7 +59,7 @@ export default function ExpenseForm(props) {
             <TextField value = {values["card"]} onChange={handleChange('card')} id="outlined-basic" label="Credit Card" variant="outlined" />
             </Row>
             <Row className="spacing">
-            <TextField  value = {values["date"]} onChange={handleChange('date')} id="outlined-basic" label="Date Purchased" variant="outlined" />
+            <DatePicker label="Date Purchased" selected={values["date"]} onChange={handleChange('date')} />
             </Row>
             <Row className="spacing">
             <TextField  value = {values["item"]} onChange={handleChange('item')} id="outlined-basic" label="Store Name" variant="outlined" />

@@ -14,13 +14,15 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [toDashboard, setToDashboard] = useState(false);
-  const [id, setID] = useState("")
+  const [id, setID] = useState("");
   let navigate = useNavigate();
   const [data, setData] = useState({
     name: "",
     id: "",
     budget: "",
   });
+  const [errorCode, setErrorCode] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   async function postUserInfo(id) {
     const requestOptions = {
@@ -31,35 +33,38 @@ export default function SignUp() {
       },
       body: JSON.stringify({ ...data, ["id"]: id }),
     };
-      const response = await fetch("/api/v1/users", requestOptions);
-      const body = await response.json();
-      console.log("posted", body);
+    const response = await fetch("/api/v1/users", requestOptions);
+    const body = await response.json();
+    console.log("posted", body);
   }
   const handleChange = (prop) => (event) => {
     setData({ ...data, [prop]: event.target.value });
-    console.log("set data", prop)
+    console.log("set data", prop);
   };
 
   function signUp() {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        postUserInfo(user.uid)
-        setID(user.uid)
-        setToDashboard(true)
-        
+        postUserInfo(user.uid);
+        setID(user.uid);
+        setToDashboard(true);
+        setErrorCode("");
+        setErrorMessage("");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        setErrorCode(errorCode);
+        setErrorMessage(errorMessage);
         console.log("ERROR", errorCode, errorMessage);
       });
   }
 
   useEffect(() => {
-      if (toDashboard) {
-        navigate("/home", {state: {"uid":id}})
-      }
+    if (toDashboard) {
+      navigate("/home", { state: { uid: id } });
+    }
   }, [toDashboard, navigate, id]);
 
   return (
@@ -112,6 +117,7 @@ export default function SignUp() {
       <Button className="spacing" onClick={signUp} variant="contained">
         Sign Up
       </Button>
+      <div>{errorCode ? `Error: ${errorCode}: ${errorMessage}` : ""}</div>
     </Container>
   );
 }
