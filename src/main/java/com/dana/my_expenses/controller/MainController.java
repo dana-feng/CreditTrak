@@ -52,6 +52,10 @@ public class MainController {
     public String addUser(@RequestBody User user) throws ExecutionException, InterruptedException {
         return userService.saveUser(user);
     }
+    @PutMapping("/users")
+    public String updateExpense(@RequestBody User user) throws ExecutionException, InterruptedException {
+        return userService.updateUser(user);
+    }
     @GetMapping("/users/{id}")
     public User getUser(@PathVariable String id) throws ExecutionException, InterruptedException {
         return userService.getUser(id);

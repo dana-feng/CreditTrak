@@ -14,18 +14,18 @@ import java.util.concurrent.ExecutionException;
 
 @Service
 public class ExpenseService {
-    private static final String COLLECTION_NAME = "expenses";
+    private static final String EXPENSES = "expenses";
 
     public String saveExpense(Expense expense) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
-        ApiFuture<WriteResult> collectionApiFuture = dbFirestore.collection(COLLECTION_NAME).document(expense.getId()).set(expense);
+        ApiFuture<WriteResult> collectionApiFuture = dbFirestore.collection(EXPENSES).document(expense.getId()).set(expense);
         return collectionApiFuture.get().getUpdateTime().toString();
 
     }
 
     public Expense getExpense(String id) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
-        DocumentReference documentReference = dbFirestore.collection(COLLECTION_NAME).document(id);
+        DocumentReference documentReference = dbFirestore.collection(EXPENSES).document(id);
         ApiFuture<DocumentSnapshot> future = documentReference.get();
         DocumentSnapshot document = future.get();
         Expense expense = null;
@@ -39,14 +39,14 @@ public class ExpenseService {
 
     public String updateExpense(Expense expense) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
-        ApiFuture<WriteResult> collectionApiFuture = dbFirestore.collection(COLLECTION_NAME).document(expense.getId()).set(expense);
+        ApiFuture<WriteResult> collectionApiFuture = dbFirestore.collection(EXPENSES).document(expense.getId()).set(expense);
         return collectionApiFuture.get().getUpdateTime().toString();
 
     }
 
     public String deleteExpense(String id) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
-        ApiFuture<WriteResult> collectionApiFuture = dbFirestore.collection(COLLECTION_NAME).document(id).delete();
+        ApiFuture<WriteResult> collectionApiFuture = dbFirestore.collection(EXPENSES).document(id).delete();
         return "Document with Expense id" + id + "has been deleted successfully";
 
     }
@@ -54,7 +54,7 @@ public class ExpenseService {
     public Map<String, List<Expense>> getExpenses() throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
 
-        Iterable<DocumentReference> documentReference = dbFirestore.collection(COLLECTION_NAME).listDocuments();
+        Iterable<DocumentReference> documentReference = dbFirestore.collection(EXPENSES).listDocuments();
         Iterator<DocumentReference> iterator = documentReference.iterator();
         Map<String, List<Expense>> expenses = new HashMap<>();
 
@@ -78,7 +78,7 @@ public class ExpenseService {
     public Map<String, List<Expense>> getExpensesByOwner(String owner) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
 
-        Iterable<DocumentReference> documentReference = dbFirestore.collection(COLLECTION_NAME).listDocuments();
+        Iterable<DocumentReference> documentReference = dbFirestore.collection(EXPENSES).listDocuments();
         Iterator<DocumentReference> iterator = documentReference.iterator();
         Map<String, List<Expense>> expenses = new HashMap<>();
 

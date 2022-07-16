@@ -16,7 +16,7 @@ public class FirebaseInitialization  {
         FileInputStream serviceAccount =
                 null;
         try {
-            serviceAccount = new FileInputStream("/Users/dfeng21/Desktop/my_expenses/service2.json");
+            serviceAccount = new FileInputStream("");
 
 
         FirebaseOptions options = new FirebaseOptions.Builder()

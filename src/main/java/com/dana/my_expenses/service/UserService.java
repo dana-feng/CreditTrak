@@ -1,5 +1,6 @@
 package com.dana.my_expenses.service;
 
+import com.dana.my_expenses.entity.Expense;
 import com.dana.my_expenses.entity.User;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.DocumentReference;
@@ -20,6 +21,14 @@ public class UserService {
         return collectionApiFuture.get().getUpdateTime().toString();
 
     }
+
+    public String updateUser(User user) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        ApiFuture<WriteResult> collectionApiFuture = dbFirestore.collection(USER).document(user.getId()).set(user);
+        return collectionApiFuture.get().getUpdateTime().toString();
+
+    }
+
     public User getUser(String id) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         DocumentReference documentReference = dbFirestore.collection(USER).document(id);
